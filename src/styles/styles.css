@@ -1,0 +1,61 @@
+@import url(./custom-classes.css);
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+
+html {
+  font-size: 62.5%;
+}
+
+#root {
+  --blue-100: #a8aabb;
+  --blue-200: #9499c9;
+  --blue-300: #505587;
+  --blue-400: #383e74;
+  --blue-500: #383c63;
+  --blue-600: #14172e;
+
+  --blue-400-5: rgba(56, 62, 116, 0.5);
+
+  --green-palette-100: #40543d;
+
+  --white-100: #efe7e4;
+  --white-200: #c0b9b7;
+
+  --red-bulb-off: #3d0000;
+  --green-bulb-off: #092f03;
+  --orange-bulb-off: #652607;
+
+  --orange-100: #d85919;
+  
+  --red-glow: #701414;
+  --red-glow-on: #f36c6c;
+  --orange-glow: #f89868;
+  --orange-glow-on: #f6a880;
+  --green-glow: #206d14;
+  --green-glow-on: #7fe370;
+
+  --wood-palette-100: #e7cfb4;
+  --wood-palette-200: #ffc18c;
+  --wood-palette-300: #da6d42;
+  --wood-palette-400: #84240c;
+  --wood-palette-500: #563232;
+  --wood-palette-600: #231616;
+  
+  --wood-palette-100-5: rgba(231, 207, 180, 0.5);
+  --wood-palette-300-3: rgba(218, 109, 66, 0.3);
+  --wood-palette-300-5: rgba(218, 109, 66, 0.5);
+  --wood-palette-400-5: rgba(132, 36, 12, 0.5);
+}

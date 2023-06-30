@@ -1,0 +1,35 @@
+.main-header {
+    height: 7rem;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 3rem;
+
+    box-sizing: border-box;
+
+    background-color: var(--blue-100)
+
+}
+
+.title {
+    color: var(--blue-600);
+    text-shadow: -2px 2px var(--wood-palette-100-5),
+                -4px 3px var(--wood-palette-300-5),
+                -6px 4px var(--blue-400-5);
+}
+
+.right-header {
+    background-color: var(--blue-300);
+    height: 3rem;
+    width: 3rem;
+
+    border-radius: 10px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 4rem;
+
+    box-shadow: 1px 1px 2px var(--blue-600);
+}
