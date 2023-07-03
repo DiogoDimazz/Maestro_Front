@@ -1,0 +1,59 @@
+.main-controls {
+    width: 99%;
+    height: 90%;
+
+    background-color: aquamarine;
+}
+
+.top-controls {
+    height: 45%;
+    background-color: rgb(255, 202, 202);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.down-controls {
+    display: flex;
+    justify-content: space-between;
+    height: 55%;
+
+}
+
+.left-down-controls {
+    display: flex;
+    background-color: rgb(181, 181, 234);
+    width: 33.33%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+}
+
+.center-down-controls {
+    display: flex;
+    background-color: cyan;
+    width: 33.34%;
+    height: 100%;
+    flex-direction:column;
+    align-items: center;
+}
+
+.right-down-controls {
+    display: flex;
+    width: 33.33%;
+    height: 100%;
+    justify-content: flex-end;
+    gap: 5rem;
+    align-items: center;
+}
+
+/* .controls {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+} */

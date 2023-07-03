@@ -46,3 +46,11 @@
   height: 100vh;
   width: 100vw;
 }
+
+.main-container {
+  display: flex;
+  justify-content: space-between;
+  height: calc(100% - 7rem);
+  background-image: url(../assets/wood-pattern.png);
+  width: 100%;
+}
