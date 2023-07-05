@@ -1,0 +1,47 @@
+.bpm-ruler-main {
+    width: 90%;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+
+    position: relative;
+}
+
+.temp {
+    height: 100px;
+    width: 100%;
+    font-size: 72px;
+}
+
+.ruler-line {
+    height: 4px;
+    width: 1490px;
+
+    background-color: var(--wood-palette-600);
+    outline: 2px solid var(--wood-palette-200);
+    outline-style: outset;
+    border-radius: 10px;   
+}
+
+.ruler-weight {
+    height: 3rem;
+    width: 3rem;
+
+    background-color: var(--blue-200);
+
+    border-radius: 50%;
+    position: absolute;
+}
+
+.the-dot {
+    height: 3rem;
+    width: 3rem;
+    
+    background-color: green;
+    
+    border-radius: 50%;
+    position: absolute;
+    left: 140px
+}
