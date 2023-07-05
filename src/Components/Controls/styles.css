@@ -2,12 +2,10 @@
     width: 99%;
     height: 90%;
 
-    background-color: aquamarine;
 }
 
 .top-controls {
     height: 45%;
-    background-color: rgb(255, 202, 202);
 
     display: flex;
     flex-direction: column;
@@ -24,7 +22,6 @@
 
 .left-down-controls {
     display: flex;
-    background-color: rgb(181, 181, 234);
     width: 33.33%;
     height: 100%;
     align-items: center;
@@ -33,7 +30,6 @@
 
 .center-down-controls {
     display: flex;
-    background-color: cyan;
     width: 33.34%;
     height: 100%;
     flex-direction:column;

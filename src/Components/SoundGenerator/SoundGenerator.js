@@ -6,11 +6,12 @@ import strongBeepURL from '../../assets/strong-beat.mp3'
 import weakBeepURL from '../../assets/weak-beat.mp3'
 
 export const SoundGenerator = () => {
-    const {metronomeOn} = useConsumer()
+    const {metronomeOn, bpmG} = useConsumer()
     const audioCtx = new AudioContext();
     const [beepBuffer, setBeepBuffer] = useState(null);
     const timeSignature = [strongBeepURL, weakBeepURL, weakBeepURL]
     const [beatCounter, setBeatCounter] = useState(0)
+    const [generatorBpm, setGeneratorBpm] = useState()
 
 
     const loadBeep = () => {
@@ -24,11 +25,13 @@ export const SoundGenerator = () => {
         setBeepBuffer(localBeatArray);
     };
 
+
+    
     useEffect(() => {
         loadBeep();
+        setGeneratorBpm(bpmG)
         return(() => {})
-    }, []);
-
+    }, [bpmG]);
 
     useInterval(() => {
         if (beepBuffer) {
@@ -37,8 +40,8 @@ export const SoundGenerator = () => {
             beepSource.connect(audioCtx.destination);
             beepSource.start();
         }
-        console.log(beepBuffer.length);
+
         if (beatCounter === beepBuffer.length - 1) {return setBeatCounter(0)}
         setBeatCounter(prev => prev + 1)
-    }, metronomeOn ? 500 :  null)
+    }, metronomeOn ? 60000/generatorBpm :  null)
 }

@@ -2,9 +2,11 @@ import { useState } from "react"
 
 function useProvider() {
     const [metronomeOn, setMetronomeOn] = useState(false)
+    const [bpmG, setBpmG] = useState(120)
 
     return {
-        metronomeOn, setMetronomeOn
+        metronomeOn, setMetronomeOn,
+        bpmG, setBpmG
     }
 }
 

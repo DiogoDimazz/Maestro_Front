@@ -8,6 +8,14 @@
     font-size: 2.4rem;
 }
 
+.large-input-font {
+    font-family: 'Nunito', sans-serif;
+    font-size: 6rem;
+    font-weight: 600;
+    
+    color: var(--wood-palette-600);
+}
+
 .small-input-font {
     font-family: 'Nunito', sans-serif;
     font-size: 1.4rem;
