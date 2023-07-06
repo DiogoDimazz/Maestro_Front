@@ -12,7 +12,6 @@ function Main() {
         <MetronomeContainer/>
         <SideDesigns side={{right: '0rem'}}/>
       </div>
-      {/* <RightContainer/> */}
     </main>
   );
 }

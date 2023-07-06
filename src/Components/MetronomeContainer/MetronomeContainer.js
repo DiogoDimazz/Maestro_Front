@@ -4,7 +4,6 @@ import { Controls } from '../Controls/Controls';
 
 export const MetronomeContainer = () => {
 
-
     return (
         <section className="metronome-container">
             <Controls/>

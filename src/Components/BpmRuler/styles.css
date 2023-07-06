@@ -34,14 +34,3 @@
     border-radius: 50%;
     position: absolute;
 }
-
-.the-dot {
-    height: 3rem;
-    width: 3rem;
-    
-    background-color: green;
-    
-    border-radius: 50%;
-    position: absolute;
-    left: 140px
-}

@@ -2,21 +2,19 @@ import './styles.css'
 import { useInterval } from '../../Hooks/useInterval';
 import { useState, useEffect } from 'react';
 import useConsumer from '../../Hooks/useConsumer';
-import strongBeepURL from '../../assets/strong-beat.mp3'
-import weakBeepURL from '../../assets/weak-beat.mp3'
+
 
 export const SoundGenerator = () => {
-    const {metronomeOn, bpmG} = useConsumer()
+    const {metronomeOn, bpmG, timeSignatureG} = useConsumer()
     const audioCtx = new AudioContext();
     const [beepBuffer, setBeepBuffer] = useState(null);
-    const timeSignature = [strongBeepURL, weakBeepURL, weakBeepURL]
     const [beatCounter, setBeatCounter] = useState(0)
-    const [generatorBpm, setGeneratorBpm] = useState()
-
-
+    
     const loadBeep = () => {
+        console.log('loadBeep');
+        if(!timeSignatureG) return
         const localBeatArray = []
-        timeSignature.forEach(async (currentBeep) => {
+        timeSignatureG.forEach(async (currentBeep) => {
             const response = await fetch(currentBeep);
             const arrayBuffer = await response.arrayBuffer();
             const audioBuffer = await audioCtx.decodeAudioData(arrayBuffer);
@@ -24,24 +22,43 @@ export const SoundGenerator = () => {
         })
         setBeepBuffer(localBeatArray);
     };
-
-
+    
+    
+    
     
     useEffect(() => {
+        console.log('load');
         loadBeep();
-        setGeneratorBpm(bpmG)
-        return(() => {})
-    }, [bpmG]);
+        return()=>{}
+    }, [])
 
-    useInterval(() => {
+    useEffect(() => {
         if (beepBuffer) {
             const beepSource = audioCtx.createBufferSource();
             beepSource.buffer = beepBuffer[beatCounter];
-            beepSource.connect(audioCtx.destination);
+            beepSource.connect(audioCtx.destination)
+            beepSource.loop = true
             beepSource.start();
         }
 
+        return()=>{}
+        //eslint-disable-next-line
+    }, [metronomeOn])
+
+    useInterval(() => {
+        // console.log('interval');
+        // if (beepBuffer) {
+        //     const beepSource = audioCtx.createBufferSource();
+        //     beepSource.buffer = beepBuffer[beatCounter];
+        //     beepSource.connect(audioCtx.destination);
+        //     beepSource.loop = true
+        //     beepSource.start();
+        //     setTimeout(() => {
+        //         beepSource.stop()
+        //     }, 500)
+        // }
+
         if (beatCounter === beepBuffer.length - 1) {return setBeatCounter(0)}
         setBeatCounter(prev => prev + 1)
-    }, metronomeOn ? 60000/generatorBpm :  null)
+    }, metronomeOn ? 1000 :  null)
 }

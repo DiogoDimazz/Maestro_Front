@@ -23,6 +23,13 @@
     
     color: var(--wood-palette-600);
 }
+.small-error-font {
+    font-family: 'Nunito', sans-serif;
+    font-size: 1.4rem;
+    font-weight: 600;
+    
+    color: var(--red-100);
+}
 
 .small-label-font {
     font-family: 'Nunito', sans-serif;
