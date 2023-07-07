@@ -1,6 +1,6 @@
 import { useState } from "react"
-import strongBeepURL from '../assets/strong-beat.mp3'
-import weakBeepURL from '../assets/weak-beat.mp3'
+import strongBeepURL from '../assets/strong_beep-in40.mp3'
+import weakBeepURL from '../assets/weak_beep-in40.mp3'
 
 function useProvider() {
     const [metronomeOn, setMetronomeOn] = useState(false)
