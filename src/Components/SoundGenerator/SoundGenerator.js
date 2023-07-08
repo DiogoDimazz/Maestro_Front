@@ -3,109 +3,98 @@ import { useInterval } from '../../Hooks/useInterval';
 import { useState, useEffect } from 'react';
 import useConsumer from '../../Hooks/useConsumer';
 
-
-
 export const SoundGenerator = () => {
     const {metronomeOn, bpmG, timeSignatureG} = useConsumer()
-    const audioCtx = new AudioContext();
+    const [audioCtx, setAudioCtxs] = useState();
     const [beatSources, setBeatSources] = useState([])
-    const [beepBuffer, setBeepBuffer] = useState(null);
-    const [playBeats, setPlayBeats] = useState()
+    const [beatBuffers, setBeatBuffers] = useState([]);
+    const [iterator, setIterator] = useState()
+    const [playBeats, setPlayBeats] = useState(false)
     
+    useEffect(() => {     
+        if(!metronomeOn) return
+        setAudioCtxs(new AudioContext())
+        setIterator(0)
+        return()=>{setPlayBeats(false)}
+        //eslint-disable-next-line
+    }, [bpmG, timeSignatureG, metronomeOn])
+
+
+    useEffect(() => {
+        if(!audioCtx) return
+        loadBeats()
+        createBuffers()
+        return()=>{}
+        //eslint-disable-next-line
+    }, [audioCtx])
     
+
+    useEffect(() => {
+        if (metronomeOn) return
+        for (let i = 0; i < beatSources.length; i++) {
+            beatSources[i].loop = false
+        }
+    
+        return()=>{}
+        //eslint-disable-next-line
+    }, [metronomeOn])
+
+
     const createBuffers = () => {
         const localSources = []
-
         for (let i = 0; i < timeSignatureG.length; i++) {
-            const localBuffer = audioCtx.createBufferSource()
-            localSources.push(localBuffer)
+            const localBufferSource = audioCtx.createBufferSource()
+            localSources.push(localBufferSource)
         }
-
         setBeatSources(localSources)
     }
 
-    const loadBeep = async () => {
-        if(!timeSignatureG) return
 
-        const localBeatArray = []
-        timeSignatureG.forEach(async (currentBeep) => {
-            const response = await fetch(currentBeep);
+    const loadBeats = async () => {
+        if(!timeSignatureG) return
+        let localBuffers = []
+        for (const currentBeat of timeSignatureG) {
+            const response = await fetch(currentBeat)
             const arrayBuffer = await response.arrayBuffer();
             const audioBuffer = await audioCtx.decodeAudioData(arrayBuffer);
-            localBeatArray.push(audioBuffer)
-            console.log(audioBuffer.numberOfChannels);
-        })
-        setBeepBuffer(localBeatArray);
-        //o bloco abaixo é um teste. Preciso fazer audios longos os suficiente para 40 bpm
-        //E com isso determinar a duração pelo loopEnd
-
-        // const response = await fetch(beeps) 
-        // const arrayBuffer = await response.arrayBuffer()
-        // const audioBuffer = await audioCtx.decodeAudioData(arrayBuffer)
-        // setBeepBuffer(audioBuffer)
+            localBuffers.push(audioBuffer)
+        }
+        setBeatBuffers(localBuffers)
     };
     
-    const fillTheSources = () => {
-        for(let i = 0; i < timeSignatureG.length; i++) {
-            beatSources[i].buffer = beepBuffer[i]
-            beatSources[i].connect(audioCtx.destination)
-            beatSources[i].loop = true
-            beatSources[i].loopEnd = 60/bpmG
+    useEffect(() => {
+        if (beatSources.length === 0) return
+        if(metronomeOn) {
             setPlayBeats(true)
         }
-    }
-
-    const stopMetronome = () => {
-        for (let i = 0; i < beatSources.length; i++){
-            beatSources[i].stop()
-        }
-    }
-    
-    useEffect(() => {
-        if(beatSources.length === 0) return
-
-        loadBeep();
         return()=>{}
 
-        //eslint-disable-next-line
     }, [beatSources])
-    
-    useEffect(() => {
-        createBuffers()
-        return()=>{}
 
-        //eslint-disable-next-line
-    }, [bpmG])
-
-
-    useEffect(() => {
-        if(!metronomeOn) return
-
-        setPlayBeats(true)
-        if (beepBuffer) {
-            fillTheSources()
-            // beepSource.buffer = beepBuffer;
-            // beepSource.connect(audioCtx.destination)
-            // beepSource.loop = true
-            // beepSource.loopEnd = 60/bpmG
-            // beepSource.loopStart = timeSignatureG[beatSelector]
-            // beepSource.start();
-        }
+    const playTheSources = (currentBeat, currentBuffer) => {
+        if (iterator === 2 || iterator === 3) {console.log('agora')}
+        currentBeat.buffer = currentBuffer
+        currentBeat.connect(audioCtx.destination)
         
-        return()=>{
-            stopMetronome()
-        }
-        //eslint-disable-next-line
-    }, [metronomeOn])
-    
-    useInterval(() => {
-        console.log('aqui');
-        if(!beepBuffer) return
-        let i = 0
+        currentBeat.loop = true
+        currentBeat.loopEnd = 60/bpmG * timeSignatureG.length
+        currentBeat.start()
 
-        beatSources[i].start()
-        if(i >= beatSources.length) {return setPlayBeats(false)}
-        i++;
+        }
+    
+
+    useInterval(() => {
+        // if(beatSources.length === 0 || localBuffers.length === 0) return
+
+        playTheSources(beatSources[iterator], beatBuffers[iterator])
+
+        if(iterator >= beatSources.length - 1) {
+            setPlayBeats(false)
+            return
+        }
+
+        setIterator(prev => prev + 1)
+
 
     }, playBeats ? 60000/bpmG :  null)
 }

@@ -1,11 +1,12 @@
 import { useState } from "react"
-import strongBeepURL from '../assets/strong_beep-in40.mp3'
-import weakBeepURL from '../assets/weak_beep-in40.mp3'
+import strongBeepURL from '../assets/long-strong-beat.mp3'
+import weakBeepURL from '../assets/long-weak-beat.mp3'
+
 
 function useProvider() {
     const [metronomeOn, setMetronomeOn] = useState(false)
-    const [bpmG, setBpmG] = useState(120)
-    const [timeSignatureG, setTimeSignatureG] = useState([strongBeepURL, weakBeepURL, weakBeepURL])
+    const [bpmG, setBpmG] = useState(40)
+    const [timeSignatureG, setTimeSignatureG] = useState([strongBeepURL, weakBeepURL, weakBeepURL, strongBeepURL, weakBeepURL, strongBeepURL, weakBeepURL, weakBeepURL, strongBeepURL, weakBeepURL, strongBeepURL, weakBeepURL])
 
 
     return {
