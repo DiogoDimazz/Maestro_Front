@@ -9,15 +9,15 @@ export const SoundGenerator = () => {
     const [beatSources, setBeatSources] = useState([])
     const [beatBuffers, setBeatBuffers] = useState([]);
     const [iterator, setIterator] = useState()
-    const [playBeats, setPlayBeats] = useState(false)
+    const [renew, setRenew] = useState(false)
     
     useEffect(() => {     
         if(!metronomeOn) return
         setAudioCtxs(new AudioContext())
         setIterator(0)
-        return()=>{setPlayBeats(false)}
+        return()=>{}
         //eslint-disable-next-line
-    }, [bpmG, timeSignatureG, metronomeOn])
+    }, [bpmG, timeSignatureG, metronomeOn, renew])
 
 
     useEffect(() => {
@@ -62,39 +62,29 @@ export const SoundGenerator = () => {
         setBeatBuffers(localBuffers)
     };
     
-    useEffect(() => {
-        if (beatSources.length === 0) return
-        if(metronomeOn) {
-            setPlayBeats(true)
-        }
-        return()=>{}
-
-    }, [beatSources])
 
     const playTheSources = (currentBeat, currentBuffer) => {
-        if (iterator === 2 || iterator === 3) {console.log('agora')}
+        console.log(currentBuffer);
+        
         currentBeat.buffer = currentBuffer
         currentBeat.connect(audioCtx.destination)
         
-        currentBeat.loop = true
-        currentBeat.loopEnd = 60/bpmG * timeSignatureG.length
+        currentBeat.duration = 60/bpmG
         currentBeat.start()
 
         }
     
 
     useInterval(() => {
-        // if(beatSources.length === 0 || localBuffers.length === 0) return
-
         playTheSources(beatSources[iterator], beatBuffers[iterator])
 
         if(iterator >= beatSources.length - 1) {
-            setPlayBeats(false)
+            setRenew(!renew)
             return
         }
 
         setIterator(prev => prev + 1)
 
 
-    }, playBeats ? 60000/bpmG :  null)
+    }, metronomeOn ? 60000/bpmG :  null)
 }
