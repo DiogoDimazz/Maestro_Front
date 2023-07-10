@@ -4,12 +4,14 @@ import { useState, useEffect } from 'react';
 import useConsumer from '../../Hooks/useConsumer';
 
 export const SoundGenerator = () => {
-    const {metronomeOn, bpmG, timeSignatureG} = useConsumer()
+    const {
+        metronomeOn, bpmG, pulsesLine,
+        resetAudioStructure, setResetAudioStructure
+    } = useConsumer()
     const [audioCtx, setAudioCtxs] = useState();
     const [beatSources, setBeatSources] = useState([])
     const [beatBuffers, setBeatBuffers] = useState([]);
     const [iterator, setIterator] = useState()
-    const [renew, setRenew] = useState(false)
     
     useEffect(() => {     
         if(!metronomeOn) return
@@ -17,7 +19,7 @@ export const SoundGenerator = () => {
         setIterator(0)
         return()=>{}
         //eslint-disable-next-line
-    }, [bpmG, timeSignatureG, metronomeOn, renew])
+    }, [bpmG, pulsesLine, metronomeOn, resetAudioStructure])
 
 
     useEffect(() => {
@@ -42,7 +44,7 @@ export const SoundGenerator = () => {
 
     const createBuffers = () => {
         const localSources = []
-        for (let i = 0; i < timeSignatureG.length; i++) {
+        for (let i = 0; i < pulsesLine.length; i++) {
             const localBufferSource = audioCtx.createBufferSource()
             localSources.push(localBufferSource)
         }
@@ -51,9 +53,9 @@ export const SoundGenerator = () => {
 
 
     const loadBeats = async () => {
-        if(!timeSignatureG) return
+        if(!pulsesLine) return
         let localBuffers = []
-        for (const currentBeat of timeSignatureG) {
+        for (const currentBeat of pulsesLine) {
             const response = await fetch(currentBeat)
             const arrayBuffer = await response.arrayBuffer();
             const audioBuffer = await audioCtx.decodeAudioData(arrayBuffer);
@@ -64,7 +66,6 @@ export const SoundGenerator = () => {
     
 
     const playTheSources = (currentBeat, currentBuffer) => {
-        console.log(currentBuffer);
         
         currentBeat.buffer = currentBuffer
         currentBeat.connect(audioCtx.destination)
@@ -79,7 +80,7 @@ export const SoundGenerator = () => {
         playTheSources(beatSources[iterator], beatBuffers[iterator])
 
         if(iterator >= beatSources.length - 1) {
-            setRenew(!renew)
+            setResetAudioStructure(!resetAudioStructure)
             return
         }
 

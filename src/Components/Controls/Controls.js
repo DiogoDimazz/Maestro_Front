@@ -1,6 +1,7 @@
 import './styles.css'
 import { BpmRuler } from '../BpmRuler/BpmRuler'
 import { BpmInput } from '../BpmInput/BpmInput'
+import { Blinks } from '../Blinks/Blinks'
 
 export const Controls = () => {
     // const {metronomeOn, setMetronomeOn} = useConsumer()
@@ -14,12 +15,14 @@ export const Controls = () => {
                 <BpmInput/>
                 <BpmRuler/>
             </div>
+            <div className='blinks-row'>
+                <Blinks/>
+            </div>
             <div className='down-controls'>
                 <div className='left-down-controls'>
                     <span>somador e sua estrutura</span>
                 </div>
                 <div className='center-down-controls'>
-                    <span style={{width: '100%', fontSize: '27px'}}>luzes indicadoras</span>
                     <span style={{marginTop: '17rem'}}>On e Off</span>
                 </div>
                 <div className='right-down-controls'>
