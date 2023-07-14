@@ -11,12 +11,20 @@ function useProvider() {
         isBeat: [false, false, false, false]
     })
     const [resetAudioStructure, setResetAudioStructure] = useState(false)
+    const [beatSources, setBeatSources] = useState([])
+    const [beatBuffers, setBeatBuffers] = useState([])
+    const [iterator, setIterator] = useState()
+    const [audioCtx, setAudioCtxs] = useState();
 
     return {
         metronomeOn, setMetronomeOn,
         bpmG, setBpmG,
         timeSignG, setTimeSignG,
-        resetAudioStructure, setResetAudioStructure
+        resetAudioStructure, setResetAudioStructure,
+        beatSources, setBeatSources,
+        beatBuffers, setBeatBuffers,
+        iterator, setIterator,
+        audioCtx, setAudioCtxs
     }
 }
 

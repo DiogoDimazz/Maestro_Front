@@ -35,11 +35,6 @@ export const BpmInput = () => {
             setPreviousBpm(localValue)
             isNewBpm = true
             bpmInputRef.current.blur()
-            // se eu ficar apertando vários número aleatórios rapidamente, uma hora o input Bpm trava
-            // com essas duas linhas abaixo ele impede isso
-            // window.removeEventListener('keydown', keyboardInput)
-            // window.addEventListener('keydown', keyboardInput)
-
             return
         }
         
@@ -54,9 +49,6 @@ export const BpmInput = () => {
                 setBpmErrorState(false)
             }, 1000)
 
-            // caso eu nao use o errorState, essas duas linhas impedem do input travar
-            // window.removeEventListener('keydown', keyboardInput)
-            // window.addEventListener('keydown', keyboardInput)
             return
         }
 

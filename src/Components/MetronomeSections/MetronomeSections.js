@@ -3,11 +3,8 @@ import { BpmRuler } from '../BpmRuler/BpmRuler'
 import { BpmInput } from '../BpmInput/BpmInput'
 import { Blinks } from '../Blinks/Blinks'
 
-export const Controls = () => {
-    // const {metronomeOn, setMetronomeOn} = useConsumer()
-    // const onAndOff = () => {
-    //     setMetronomeOn(!metronomeOn)
-    // };
+export const MetronomeSections = () => {
+
     
     return (
         <main className='main-controls'>

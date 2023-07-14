@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import './styles.css'
 import Draggable from 'react-draggable'
 import useConsumer from '../../Hooks/useConsumer'

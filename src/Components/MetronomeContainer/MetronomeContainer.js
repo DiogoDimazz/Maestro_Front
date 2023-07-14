@@ -1,13 +1,15 @@
 import './styles.css';
 import { SoundGenerator } from '../SoundGenerator/SoundGenerator';
-import { Controls } from '../Controls/Controls';
+import { MetronomeSections } from '../MetronomeSections/MetronomeSections';
+import { TheClock } from '../TheClock/TheClock';
 
 export const MetronomeContainer = () => {
 
     return (
         <section className="metronome-container">
-            <Controls/>
+            <MetronomeSections/>
             <SoundGenerator/>
+            <TheClock/>
         </section>
     );
 };

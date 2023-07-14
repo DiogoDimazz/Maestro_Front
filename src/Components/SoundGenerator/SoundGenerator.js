@@ -1,5 +1,4 @@
 import './styles.css'
-import { useInterval } from '../../Hooks/useInterval';
 import { useState, useEffect } from 'react';
 import useConsumer from '../../Hooks/useConsumer';
 import strongBeepURL from '../../assets/long-strong-beat.mp3'
@@ -9,19 +8,20 @@ export const SoundGenerator = () => {
     const {
         metronomeOn, bpmG,
         timeSignG, setTimeSignG,
-        resetAudioStructure, setResetAudioStructure
+        resetAudioStructure,
+        beatSources, setBeatSources,
+        setBeatBuffers,
+        setIterator,
+        audioCtx, setAudioCtxs
     } = useConsumer()
-    const [audioCtx, setAudioCtxs] = useState();
-    const [beatSources, setBeatSources] = useState([])
-    const [beatBuffers, setBeatBuffers] = useState([]);
-    const [iterator, setIterator] = useState()
-    const [generatorBeatsArray, setGeneratorBeatsArray] = useState([])
     
-    useEffect(() => {     
+    const [generatorBeatsArray, setGeneratorBeatsArray] = useState([])
+    useEffect(() => {
         if(!metronomeOn) return
         setAudioCtxs(new AudioContext())
         setIterator(0)
         setGeneratorBeatsArray(timeSignG.beats)
+
         return()=>{}
         //eslint-disable-next-line
     }, [bpmG, metronomeOn, resetAudioStructure])
@@ -36,11 +36,18 @@ export const SoundGenerator = () => {
     }, [audioCtx])
     
 
+    const turnOff = () => {
+        const local = timeSignG.isBeat
+        local.fill(false)
+        setTimeSignG({...timeSignG, isBeat: local})
+    }
+
     useEffect(() => {
         if (metronomeOn) return
         for (let i = 0; i < beatSources.length; i++) {
             beatSources[i].loop = false
         }
+        turnOff()
         return()=>{}
         //eslint-disable-next-line
     }, [metronomeOn])
@@ -67,40 +74,4 @@ export const SoundGenerator = () => {
         }
         setBeatBuffers(localBuffers)
     };
-    
-
-    const playTheSources = (currentBeat, currentBuffer) => {
-        currentBeat.buffer = currentBuffer
-        currentBeat.connect(audioCtx.destination)
-        
-        currentBeat.duration = 60/bpmG
-        currentBeat.start()
-
-        }
-
-
-    const turnTheLightsOn = () => {
-        const controlArray = timeSignG.isBeat
-        controlArray[iterator] = true
-        if(iterator === 0) {
-            controlArray[controlArray.length-1] = false
-        } else {
-            controlArray[iterator-1] = false
-        }
-        setTimeSignG({...timeSignG, isBeat: controlArray})
-    }
-
-
-    useInterval(() => {
-        playTheSources(beatSources[iterator], beatBuffers[iterator])
-        turnTheLightsOn()
-        if(iterator >= beatSources.length - 1) {
-            setResetAudioStructure(!resetAudioStructure)
-            return
-        }
-
-        setIterator(prev => prev + 1)
-
-
-    }, metronomeOn ? 60000/bpmG :  null)
 }
