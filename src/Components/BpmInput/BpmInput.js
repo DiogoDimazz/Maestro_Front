@@ -3,8 +3,9 @@ import './styles.css'
 import useConsumer from '../../Hooks/useConsumer'
 
 export const BpmInput = () => {
-    
-    const {setMetronomeOn, bpmG, setBpmG} = useConsumer()
+    const {
+        setMetronomeOn, bpmG, setBpmG, numberDetectionBlock, fastChangeCoeficient
+    } = useConsumer()
     const [localBpm, setLocalBpm] = useState('')
     const [previousBpm, setPreviousBpm] = useState()
     const [bpmErrorState, setBpmErrorState] = useState(false)
@@ -14,6 +15,15 @@ export const BpmInput = () => {
 
     const keyboardInput = ({code, key}) => {
         if (code === "Space") {return setMetronomeOn(prev => !prev)}
+        
+        if(
+            key === "ArrowRight" ||
+            key === "ArrowLeft" ||
+            key === "ArrowUp" ||
+            key === "ArrowDown"
+        ) {
+            return fastChangeCoeficient(key)
+        }
         
         if(!isNaN(key) && isNewBpm) {
             bpmInputRef.current.focus()
@@ -25,6 +35,7 @@ export const BpmInput = () => {
     
     const inputingBpm = (e) => {
         e.preventDefault()
+    
         const localValue = Number(bpmInputRef.current.value)
         if(localValue !== 0) {
             setLocalBpm(localValue)
@@ -58,13 +69,15 @@ export const BpmInput = () => {
         setLocalBpm(bpmG)
         setPreviousBpm(bpmG)
         
+        if(!numberDetectionBlock) {
+            window.addEventListener('keydown', keyboardInput)
+        }
 
-        window.addEventListener('keydown', keyboardInput)
         return()=>{
             window.removeEventListener('keydown', keyboardInput)
         }
         //eslint-disable-next-line
-    }, [bpmG, bpmErrorState])
+    }, [bpmG, bpmErrorState, numberDetectionBlock])
     
 
     return (
@@ -72,7 +85,7 @@ export const BpmInput = () => {
             <div className='input-wrapper'>
                 <input
                     ref={bpmInputRef}
-                    className='bpm-input large-input-font'
+                    className='input-style bpm-input large-input-font'
                     value={localBpm}
                     onChange={inputingBpm}
                     style={bpmErrorState ?  errorOutline : null}

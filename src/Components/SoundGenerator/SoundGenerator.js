@@ -36,18 +36,13 @@ export const SoundGenerator = () => {
     }, [audioCtx])
     
 
-    const turnOff = () => {
-        const local = timeSignG.isBeat
-        local.fill(false)
-        setTimeSignG({...timeSignG, isBeat: local})
-    }
+
 
     useEffect(() => {
         if (metronomeOn) return
         for (let i = 0; i < beatSources.length; i++) {
             beatSources[i].loop = false
         }
-        turnOff()
         return()=>{}
         //eslint-disable-next-line
     }, [metronomeOn])

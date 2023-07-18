@@ -5,11 +5,12 @@ import './styles.css'
 export const Blinks = () => {
     const {
         metronomeOn,
-        timeSignG
+        timeSignG, setTimeSignG,
+        bpmG
     } = useConsumer()
     const blinkRefs = useRef([])
     blinkRefs.current = []
-    const [local, setLocal] = useState([])
+    const [localTimeSign, setLocalTimeSign] = useState()
 
     const addToRefs = (e) => {
         if(e) {
@@ -17,22 +18,31 @@ export const Blinks = () => {
         }
     }
 
+    const turnOfftheLights = () => {
+        const local = timeSignG.isBeat
+        local.fill(false)
+        setTimeSignG({...timeSignG, isBeat: local})
+    }
+
     const isLit = (blink) => {
         return blink ? {backgroundColor: 'green'} : {backgroundColor: 'red'}
     }
     
+    useEffect(()=> {
+        turnOfftheLights()
+        return()=>{}
+    }, [localTimeSign, bpmG])
+
     useEffect(() => {
-        setLocal(timeSignG.isBeat)
-        return()=>{
-            setLocal([])
-        }
+        setLocalTimeSign({...timeSignG})
+        return()=>{}
         //eslint-disable-next-line
     }, [metronomeOn])
 
     return (
         <section className='blink-section'>
-            {local &&
-            local.map((blink, index) => (
+            {localTimeSign &&
+            localTimeSign.isBeat.map((blink, index) => (
                 <div className='bulb-rim' key={index} ref={addToRefs}>
                     <div className='blink-bulb' style={isLit(blink)}/>
                 </div>
