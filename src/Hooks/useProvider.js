@@ -2,22 +2,16 @@ import { useState } from "react"
 
 
 function useProvider() {
-    const [metronomeOn, setMetronomeOn] = useState(false)
+    const [metronomeStandBy, setMetronomeStandBy] = useState()
     const [bpmG, setBpmG] = useState(80)
-    const [timeSignG, setTimeSignG] = useState({
+    const [bpmChangeCoeficient, setBpmChangeCoeficient] = useState(4)
+    const [numberDetectionBlock, setNumberDetectionBlock] = useState(false)
+    const [timeSelection, setTimeSelection] = useState({
         time: '4/4',
         compoundMeter: false,
         beats: ['strong', 'weak', 'weak', 'weak'],
         isBeat: [false, false, false, false]
     })
-    const [bpmChangeCoeficient, setBpmChangeCoeficient] = useState(4)
-    const [numberDetectionBlock, setNumberDetectionBlock] = useState(false)
-    
-    const [resetAudioStructure, setResetAudioStructure] = useState(false)
-    const [beatSources, setBeatSources] = useState([])
-    const [beatBuffers, setBeatBuffers] = useState([])
-    const [iterator, setIterator] = useState()
-    const [audioCtx, setAudioCtxs] = useState();
 
     const fastChangeCoeficient = (name) => {
     
@@ -44,17 +38,12 @@ function useProvider() {
     }
 
     return {
-        metronomeOn, setMetronomeOn,
+        metronomeStandBy, setMetronomeStandBy,
         bpmG, setBpmG,
-        timeSignG, setTimeSignG,
         bpmChangeCoeficient, setBpmChangeCoeficient,
         numberDetectionBlock, setNumberDetectionBlock,
-        resetAudioStructure, setResetAudioStructure,
-        beatSources, setBeatSources,
-        beatBuffers, setBeatBuffers,
-        iterator, setIterator,
-        audioCtx, setAudioCtxs,
-        fastChangeCoeficient
+        fastChangeCoeficient,
+        timeSelection, setTimeSelection
     }
 }
 

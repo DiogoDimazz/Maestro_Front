@@ -20,8 +20,8 @@
     border: none;
     background-color: var(--white-100);
     display: flex;
-    text-align: center;
     border-radius: 10px;
+
 }
 
 .input-style:focus {
@@ -56,4 +56,13 @@
     font-family: 'Nunito', sans-serif;
     font-size: 0.9rem;
     color: var(--wood-palette-600);
+}
+
+.arrow {
+    width: 5rem;
+    position: absolute;
+}
+
+.arrow:hover {
+    cursor: pointer;
 }

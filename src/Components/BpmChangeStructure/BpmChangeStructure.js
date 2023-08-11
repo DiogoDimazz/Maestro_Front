@@ -1,34 +1,30 @@
 import './styles.css'
-import arrow from '../../assets/arrow.png'
+import arrow from '../../assets/arrow.svg'
 import useConsumer from '../../Hooks/useConsumer'
 import { useEffect, useRef, useState } from 'react'
 
 
 export const BpmChangeStructure = () => {
     const {
-        bpmG, setBpmG,
         bpmChangeCoeficient, setBpmChangeCoeficient,
         numberDetectionBlock, setNumberDetectionBlock,
         fastChangeCoeficient
     } = useConsumer()
-    const [localCoeficient, setLocalCoeficient] = useState()
+    const [localCoeficient, setLocalCoeficient] = useState('')
     const coeficientRef = useRef()
-
-const handleChangeCoeficient = (e) => {
-    e.preventDefault()
-    setLocalCoeficient(e.target.value)
-
-}
-
+    
 const handleOnBlock = (e) => {
     e.preventDefault()
     setNumberDetectionBlock(true)
     setLocalCoeficient('')
+    return
 }
 
 const handleOffBlock = (e) => {
     e.preventDefault()
     setNumberDetectionBlock(false)
+    setLocalCoeficient(bpmChangeCoeficient)
+    return
 }
 
 const bpmChangeInput = ({key}) => {
@@ -48,13 +44,13 @@ const bpmChangeInput = ({key}) => {
 }
 
 useEffect(() => {
-
     if (numberDetectionBlock) {
         window.addEventListener('keydown', bpmChangeInput)
     }
     return()=>{
         window.removeEventListener('keydown', bpmChangeInput)
     }
+    //eslint-disable-next-line
 }, [numberDetectionBlock])
 
 useEffect(()=>{
@@ -66,8 +62,8 @@ useEffect(()=>{
         <section className='fast-bpm-section'>
             <input
                 value={localCoeficient}
-                className='bpm-coeficient-input input-style large-input-font'
-                onChange={handleChangeCoeficient}
+                className='input-style large-input-font bpm-coeficient-input'
+                onChange={e => setLocalCoeficient(e.target.value)}
                 onFocus={handleOnBlock}
                 onBlur={handleOffBlock}
                 ref={coeficientRef}

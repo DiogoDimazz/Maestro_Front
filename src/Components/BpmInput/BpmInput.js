@@ -4,8 +4,11 @@ import useConsumer from '../../Hooks/useConsumer'
 
 export const BpmInput = () => {
     const {
-        setMetronomeOn, bpmG, setBpmG, numberDetectionBlock, fastChangeCoeficient
+        metronomeStandBy, setMetronomeStandBy,
+        bpmG, setBpmG,
+        numberDetectionBlock, fastChangeCoeficient
     } = useConsumer()
+
     const [localBpm, setLocalBpm] = useState('')
     const [previousBpm, setPreviousBpm] = useState()
     const [bpmErrorState, setBpmErrorState] = useState(false)
@@ -13,19 +16,25 @@ export const BpmInput = () => {
     let isNewBpm = true
     const errorOutline = {border: '4px solid rgb(231, 37, 37)'}
 
-    const keyboardInput = ({code, key}) => {
-        if (code === "Space") {return setMetronomeOn(prev => !prev)}
+
+    const keyboardInput = (event) => {
+        event.preventDefault()
+        if (event.code === "Space") {
+            setMetronomeStandBy(prev => !prev)
+            return
+        }
+
         
         if(
-            key === "ArrowRight" ||
-            key === "ArrowLeft" ||
-            key === "ArrowUp" ||
-            key === "ArrowDown"
+            event.key === "ArrowRight" ||
+            event.key === "ArrowLeft" ||
+            event.key === "ArrowUp" ||
+            event.key === "ArrowDown"
         ) {
-            return fastChangeCoeficient(key)
+            return fastChangeCoeficient(event.key)
         }
         
-        if(!isNaN(key) && isNewBpm) {
+        if(!isNaN(event.key) && isNewBpm) {
             bpmInputRef.current.focus()
             bpmInputRef.current.value = ''
             isNewBpm = false
@@ -64,6 +73,10 @@ export const BpmInput = () => {
         }
 
     }
+
+    useEffect(() => {
+        setMetronomeStandBy(false)
+    },[])
     
     useEffect(() => {
         setLocalBpm(bpmG)
@@ -78,7 +91,6 @@ export const BpmInput = () => {
         }
         //eslint-disable-next-line
     }, [bpmG, bpmErrorState, numberDetectionBlock])
-    
 
     return (
         <div className='bpm-input-main'>

@@ -2,15 +2,19 @@ import { useEffect, useState } from 'react'
 import './styles.css'
 import Draggable from 'react-draggable'
 import useConsumer from '../../Hooks/useConsumer'
+import usePlayConsumer from '../../Hooks/usePlayConsumer'
 
 export const BpmRuler = () => {
     const {
-        bpmG, setBpmG,
+        bpmG, setBpmG
+    } = useConsumer()
+    const {
         metronomeOn, setMetronomeOn,
         resetAudioStructure, setResetAudioStructure
-    } = useConsumer()
+    } = usePlayConsumer()
     const [localMetronomeOn, setLocalMetronomeOn] = useState()
-
+    
+    
     const onTheDrag = (e, data) => {
         if (metronomeOn) {setLocalMetronomeOn(true)}
         setMetronomeOn(false)

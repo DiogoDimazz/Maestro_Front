@@ -1,16 +1,20 @@
 import useConsumer from "../../Hooks/useConsumer"
 import { useInterval } from "../../Hooks/useInterval"
+import usePlayConsumer from "../../Hooks/usePlayConsumer"
 
 export const TheClock = () => {
     const {
+        bpmG,
+    } = useConsumer()
+    
+    const {
+        metronomeOn,
         timeSignG, setTimeSignG,
         iterator, setIterator,
-        bpmG,
         audioCtx,
-        metronomeOn,
         beatBuffers, beatSources,
         resetAudioStructure, setResetAudioStructure
-    } = useConsumer()
+    } = usePlayConsumer()
 
     const playTheSources = (currentBeat, currentBuffer) => {
         currentBeat.buffer = currentBuffer
@@ -34,8 +38,6 @@ export const TheClock = () => {
         setTimeSignG({...timeSignG, isBeat: controlArray})
     }
 
-
-
     useInterval(() => {
         playTheSources(beatSources[iterator], beatBuffers[iterator])
         turnTheLightsOn()
@@ -46,4 +48,5 @@ export const TheClock = () => {
         setIterator(prev => prev + 1)
 
     }, metronomeOn ? 60000/bpmG :  null)
+
 }

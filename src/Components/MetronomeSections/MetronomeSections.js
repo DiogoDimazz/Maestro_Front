@@ -1,12 +1,13 @@
 import './styles.css'
 import { BpmRuler } from '../BpmRuler/BpmRuler'
 import { BpmInput } from '../BpmInput/BpmInput'
-import { Blinks } from '../Blinks/Blinks'
+import {Blinks} from '../Blinks/Blinks'
 import { BpmChangeStructure } from '../BpmChangeStructure/BpmChangeStructure'
+import { OnAndOffBtn } from '../OnAndOffBtn/OnAndOffBtn'
+import { TimeSelect } from '../TimeSelect/TimeSelect'
 
 export const MetronomeSections = () => {
 
-    
     return (
         <main className='main-controls'>
             <div className='top-controls'>
@@ -21,16 +22,10 @@ export const MetronomeSections = () => {
                     <BpmChangeStructure/>
                 </div>
                 <div className='center-down-controls'>
-            {/* <div className="controls">
-                <button className="on-off-btn" onClick={onAndOff}>
-                    Power
-                </button>
-                <div>Bpm indicator</div>
-            </div> */}
-                    <span style={{marginTop: '17rem'}}>On e Off</span>
+                    <OnAndOffBtn/>
                 </div>
                 <div className='right-down-controls'>
-                    <span>indicador de formula de compasso</span>
+                    <TimeSelect/>
                     <span>slider de volume</span>
                 </div>
             </div>

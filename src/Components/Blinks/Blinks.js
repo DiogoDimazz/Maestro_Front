@@ -1,17 +1,21 @@
 import { useRef, useEffect, useState } from 'react'
 import useConsumer from '../../Hooks/useConsumer'
 import './styles.css'
+import usePlayConsumer from '../../Hooks/usePlayConsumer'
 
 export const Blinks = () => {
+
+    const { bpmG, timeSelection, setTimeSelection } = useConsumer()
+    
     const {
         metronomeOn,
-        timeSignG, setTimeSignG,
-        bpmG
-    } = useConsumer()
+        timeSignG, setTimeSignG
+    } = usePlayConsumer()
+
     const blinkRefs = useRef([])
     blinkRefs.current = []
     const [localTimeSign, setLocalTimeSign] = useState()
-
+    
     const addToRefs = (e) => {
         if(e) {
             blinkRefs.current.push(e)
@@ -23,7 +27,7 @@ export const Blinks = () => {
         local.fill(false)
         setTimeSignG({...timeSignG, isBeat: local})
     }
-
+    
     const isLit = (blink) => {
         return blink ? {backgroundColor: 'green'} : {backgroundColor: 'red'}
     }
@@ -31,13 +35,15 @@ export const Blinks = () => {
     useEffect(()=> {
         turnOfftheLights()
         return()=>{}
+        //eslint-disable-next-line
     }, [localTimeSign, bpmG])
 
     useEffect(() => {
-        setLocalTimeSign({...timeSignG})
+        setLocalTimeSign({...timeSelection})
+        setTimeSignG({...timeSelection})
         return()=>{}
         //eslint-disable-next-line
-    }, [metronomeOn])
+    }, [metronomeOn, timeSelection])
 
     return (
         <section className='blink-section'>

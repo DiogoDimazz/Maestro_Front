@@ -1,19 +1,19 @@
 import './styles.css'
 import { useState, useEffect } from 'react';
-import useConsumer from '../../Hooks/useConsumer';
 import strongBeepURL from '../../assets/long-strong-beat.mp3'
 import weakBeepURL from '../../assets/long-weak-beat.mp3'
+import usePlayConsumer from '../../Hooks/usePlayConsumer';
 
 export const SoundGenerator = () => {
     const {
-        metronomeOn, bpmG,
-        timeSignG, setTimeSignG,
+        metronomeOn,
+        timeSignG,
         resetAudioStructure,
         beatSources, setBeatSources,
         setBeatBuffers,
         setIterator,
         audioCtx, setAudioCtxs
-    } = useConsumer()
+    } = usePlayConsumer()
     
     const [generatorBeatsArray, setGeneratorBeatsArray] = useState([])
     useEffect(() => {
@@ -24,7 +24,7 @@ export const SoundGenerator = () => {
 
         return()=>{}
         //eslint-disable-next-line
-    }, [bpmG, metronomeOn, resetAudioStructure])
+    }, [ metronomeOn, resetAudioStructure])
 
 
     useEffect(() => {
@@ -35,8 +35,6 @@ export const SoundGenerator = () => {
         //eslint-disable-next-line
     }, [audioCtx])
     
-
-
 
     useEffect(() => {
         if (metronomeOn) return

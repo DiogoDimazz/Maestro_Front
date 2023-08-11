@@ -1,0 +1,16 @@
+.main-time-input {
+    position: relative;
+    width: 25rem;
+}
+
+.select-box {
+    all: unset;
+    padding-left: 2rem;
+    width: calc(100% - 5rem)
+}
+
+.select-arrow {
+    transform: rotate(90deg);
+    top: 1.5rem;
+    right: 1rem;
+}

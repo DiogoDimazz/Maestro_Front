@@ -10,19 +10,12 @@
 }
 
 .bpm-coeficient-input {
-    width: 100%;
-    height: 100%;
+    width: 10rem;
+    height: 10rem;
+    text-align: center;
 }
 
 
-.arrow {
-    width: 5rem;
-    position: absolute;
-}
-
-.arrow:hover {
-    cursor: pointer;
-}
 
 .up-arrow {
     transform: rotate(270deg);
