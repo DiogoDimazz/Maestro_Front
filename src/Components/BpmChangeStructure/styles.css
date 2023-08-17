@@ -1,0 +1,38 @@
+.fast-bpm-section {
+    width: 10rem;
+    height: 10rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    position: relative;
+}
+
+.bpm-coeficient-input {
+    width: 10rem;
+    height: 10rem;
+    text-align: center;
+}
+
+
+
+.up-arrow {
+    transform: rotate(270deg);
+    top: -6rem;
+}
+
+.left-arrow {
+    transform: rotate(180deg);
+    left: -6rem;
+}
+
+.right-arrow {
+    right: -6rem;
+}
+
+.down-arrow {
+    transform: rotate(90deg);
+    bottom: -6rem;
+}
+

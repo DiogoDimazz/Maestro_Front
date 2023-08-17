@@ -1,0 +1,34 @@
+.bpm-input-main {
+    height: 15rem;
+    width: 15rem;
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+}
+
+.input-wrapper {
+    height: 100%;
+    width: 100%;
+    cursor: pointer;
+}
+
+.bpm-input {
+    height: 100%;
+    width: 100%;
+    text-align: center;
+}
+
+/* .input-wrapper:hover::after {
+    content: 'Sua mão tem que estar no instrumento, não no mouse. Use os números do teclado';
+    width: 30px;
+    height: 30px;
+    position: absolute;
+} */
+
+.bpm-error-msg {
+    position: absolute;
+    width: 100px;
+    right: 40.2%;
+}

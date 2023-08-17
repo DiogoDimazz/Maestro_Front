@@ -8,12 +8,40 @@
     font-size: 2.4rem;
 }
 
+.large-input-font {
+    font-family: 'Nunito', sans-serif;
+    font-size: 6rem;
+    font-weight: 600;
+    
+    color: var(--wood-palette-600);
+}
+
+.input-style {
+    border: none;
+    background-color: var(--white-100);
+    display: flex;
+    border-radius: 10px;
+
+}
+
+.input-style:focus {
+    border: 4px solid var(--orange-100);
+    outline: none;
+}
+
 .small-input-font {
     font-family: 'Nunito', sans-serif;
     font-size: 1.4rem;
     font-weight: 600;
     
     color: var(--wood-palette-600);
+}
+.small-error-font {
+    font-family: 'Nunito', sans-serif;
+    font-size: 1.4rem;
+    font-weight: 600;
+    
+    color: var(--red-100);
 }
 
 .small-label-font {
@@ -28,4 +56,13 @@
     font-family: 'Nunito', sans-serif;
     font-size: 0.9rem;
     color: var(--wood-palette-600);
+}
+
+.arrow {
+    width: 5rem;
+    position: absolute;
+}
+
+.arrow:hover {
+    cursor: pointer;
 }

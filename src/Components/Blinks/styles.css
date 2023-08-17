@@ -1,0 +1,22 @@
+.blink-section {
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+    width: 80%;
+}
+
+.bulb-rim {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background-color: brown;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.blink-bulb {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
