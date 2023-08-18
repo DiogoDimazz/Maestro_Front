@@ -6,7 +6,8 @@
     flex-grow: 1;
     align-items: center;
     justify-content: center;
-    height: 90%;
+    height: calc(100%-7rem);
+    width: 80%;
 
     padding: 0 5rem;
     margin: 4rem 0;

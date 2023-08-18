@@ -1,6 +1,6 @@
 .fast-bpm-section {
-    width: 10rem;
-    height: 10rem;
+    width: 3rem;
+    height: 3rem;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -10,8 +10,8 @@
 }
 
 .bpm-coeficient-input {
-    width: 10rem;
-    height: 10rem;
+    width: 6rem;
+    height: 6rem;
     text-align: center;
 }
 

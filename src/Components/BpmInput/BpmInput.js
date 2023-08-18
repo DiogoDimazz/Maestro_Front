@@ -4,7 +4,7 @@ import useConsumer from '../../Hooks/useConsumer'
 
 export const BpmInput = () => {
     const {
-        metronomeStandBy, setMetronomeStandBy,
+        setMetronomeStandBy,
         bpmG, setBpmG,
         numberDetectionBlock, fastChangeCoeficient
     } = useConsumer()
