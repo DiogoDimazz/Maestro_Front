@@ -10,7 +10,7 @@
 
 .large-input-font {
     font-family: 'Nunito', sans-serif;
-    font-size: 6rem;
+    font-size: 4rem;
     font-weight: 600;
     
     color: var(--wood-palette-600);
@@ -59,7 +59,7 @@
 }
 
 .arrow {
-    width: 5rem;
+    width: 3rem;
     position: absolute;
 }
 

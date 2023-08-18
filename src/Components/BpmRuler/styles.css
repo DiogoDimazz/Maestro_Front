@@ -5,7 +5,6 @@
     align-items: center;
     justify-content: center;
     height: 10%;
-
     position: relative;
 }
 
@@ -13,7 +12,7 @@
 
 .ruler-line {
     height: 4px;
-    width: 1490px;
+    width: 100%;
 
     background-color: var(--wood-palette-600);
     outline: 2px solid var(--wood-palette-200);
@@ -22,8 +21,8 @@
 }
 
 .ruler-weight {
-    height: 3rem;
-    width: 3rem;
+    height: 2.5rem;
+    width: 2.5rem;
 
     background-color: var(--blue-200);
 

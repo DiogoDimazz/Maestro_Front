@@ -43,6 +43,8 @@ const bpmChangeInput = ({key}) => {
 
 }
 
+
+
 useEffect(() => {
     if (numberDetectionBlock) {
         window.addEventListener('keydown', bpmChangeInput)

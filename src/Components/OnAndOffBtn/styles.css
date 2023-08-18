@@ -12,8 +12,8 @@
 .power-btn {
     all: unset;
 
-    width: 25rem;
-    height: 25rem;
+    width: 13rem;
+    height: 13rem;
 
     background-color: var(--blue-200);
     display: flex;

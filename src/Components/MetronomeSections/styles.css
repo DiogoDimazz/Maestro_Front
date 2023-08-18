@@ -1,11 +1,15 @@
 .main-controls {
     width: 99%;
-    height: 90%;
-
+    height: calc(100% - 2rem);
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    display: flex;
+    flex-direction: column;
 }
 
 .top-controls {
     height: 45%;
+    width: 100%;
 
     display: flex;
     flex-direction: column;
@@ -18,6 +22,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-top: 2rem;
 }
 
 .down-controls {
