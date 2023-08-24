@@ -1,16 +1,46 @@
 .main-time-input {
-    position: relative;
-    width: 25rem;
+    display: flex;
+    flex-direction: column;
+    width: 14rem;
+    height: 5rem;
+    
+    margin-top: -7rem;
 }
 
 .select-box {
-    all: unset;
+    position: relative;
     padding-left: 2rem;
-    width: calc(100% - 5rem)
+    width: 100%;
+    height: 100%;
+    background-color: var(--white-100);
+}
+
+.select-box:hover{
+    cursor: pointer;
 }
 
 .select-arrow {
     transform: rotate(90deg);
-    top: 1.5rem;
-    right: 1rem;
+    top: 1rem;
+    right: 0.5rem;
+}
+
+.time-modal {
+    padding: 0.5rem 1rem;
+    border-radius: 10px;
+    background-color: var(--wood-palette-600);
+    margin-top: 0;
+    width: 100%;
+}
+
+.time-option {
+    list-style: none;
+    color: white;
+    font-size: 12px;
+}
+
+.time-option:hover {
+    cursor: pointer;
+    color: var(--wood-palette-600);
+    background-color: var(--white-100);
 }

@@ -14,13 +14,19 @@ export const BpmRuler = () => {
     } = usePlayConsumer()
     const [localMetronomeOn, setLocalMetronomeOn] = useState()
     const [rulerDivision, setRulerDivision] = useState(0)
+    const [handlePosition, setHandlePosition] = useState()
     const rulerLineRef = useRef()
+    const draggableRef = useRef()
     
     
     const onTheDrag = (e, data) => {
         if (metronomeOn) {setLocalMetronomeOn(true)}
         setMetronomeOn(false)
-        setBpmG(Number(((data.x/rulerDivision)+ 170).toFixed(0)));
+        setHandlePosition(data.x)
+        const value = Number(((data.x/rulerDivision)+170).toFixed(0))
+        if (value > 300) {return setBpmG(300)}
+        if (value < 40) {return setBpmG(40)}
+        setBpmG(value)
     }
     
     const handleDrop = (e, data) => {
@@ -32,15 +38,28 @@ export const BpmRuler = () => {
         
         if(localMetronomeOn) {setMetronomeOn(true)}
     }
-
-    function getRulerSize () {
-        setRulerDivision((rulerLineRef.current.offsetWidth / 270).toFixed(2));
+    
+    function getRulerSize() {
+        setRulerDivision(Number((0.35*rulerLineRef.current.offsetWidth/100).toFixed(0)));
+    }
+    
+    function getHandlePosition() {
+        setHandlePosition((bpmG-170)*rulerDivision)
     }
 
     useEffect(() => {
+        getHandlePosition()
+        return()=>{}
+        //eslint-disable-next-line
+    }, [rulerDivision, bpmG])
+
+    useEffect(() => {
+        window.addEventListener('resize', getRulerSize)
         getRulerSize()
         setLocalMetronomeOn(metronomeOn)
-        return()=>{}
+        return()=>{
+            window.removeEventListener('resize', getRulerSize)
+        }
         //eslint-disable-next-line
     }, [])
 
@@ -49,12 +68,13 @@ export const BpmRuler = () => {
             <div className='ruler-line' ref={rulerLineRef}/>
             <Draggable
                 axis='x'
-                defaultPosition={{x:bpmG - 170, y:0}}
-                bounds={'.bpm-ruler-main'}
+                bounds={'.ruler-line'}
                 handle='.ruler-weight'
-                grid={[rulerDivision, 1]}
+                grid={[rulerDivision, 0]}
                 onDrag={onTheDrag}
                 onStop={handleDrop}
+                position={{x: handlePosition, y: 0}}
+                ref={draggableRef}
                 >
                 <div className='ruler-weight'/>
             </Draggable>

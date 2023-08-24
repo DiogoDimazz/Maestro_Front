@@ -14,31 +14,6 @@ export const BpmInput = ({bpmInputTransport, setBpmInputTransport, keyboardInput
     const bpmInputRef = useRef(null)
     const errorOutline = {border: '4px solid rgb(231, 37, 37)'}
     
-    
-    // const keyboardInput = (event) => {
-    //     event.preventDefault()
-    //     if (event.code === "Space") {
-    //         setMetronomeStandBy(prev => !prev)
-    //         return
-    //     }
-        
-        
-    //     if(
-    //         event.key === "ArrowRight" ||
-    //         event.key === "ArrowLeft" ||
-    //         event.key === "ArrowUp" ||
-    //         event.key === "ArrowDown"
-    //         ) {return fastChangeCoeficient(event.key)}
-            
-    //         if(!isNaN(event.key) && isNewBpm) {
-    //         bpmInputRef.current.focus()
-    //         bpmInputRef.current.value = event.key
-    //         isNewBpm = false
-    //         window.removeEventListener('keydown', keyboardInput)
-    //         return
-    //     }
-    // }
-    
     const activateInput = () => {
         bpmInputRef.current.focus()
         bpmInputRef.current.value = bpmInputTransport

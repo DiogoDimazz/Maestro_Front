@@ -1,4 +1,5 @@
 .bpm-ruler-main {
+    /* min-width: 805px; */
     width: 90%;
     margin-bottom: 1rem;
     display: flex;
@@ -8,10 +9,9 @@
     position: relative;
 }
 
-
-
 .ruler-line {
     height: 4px;
+    /* min-width: 805px; */
     width: 100%;
 
     background-color: var(--wood-palette-600);
@@ -28,4 +28,5 @@
 
     border-radius: 50%;
     position: absolute;
+    
 }
