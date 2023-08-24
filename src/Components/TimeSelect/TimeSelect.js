@@ -5,9 +5,13 @@ import { useEffect, useState } from 'react'
 import arrow from '../../assets/arrow.svg'
 
 export const TimeSelect = () => {
-    const {timeSelection, setTimeSelection} = useConsumer()
+    const {
+        timeSelection, setTimeSelection,
+        setIsSubdivided
+    } = useConsumer()
     const [selectValue, setSelectValue] = useState()
     const [timeModal, setTimeModal] = useState()
+    const [compoundModal, setCompoundModal] = useState()
 
     const handleModal = () => {
         setTimeModal(prev=>!prev)
@@ -48,15 +52,27 @@ export const TimeSelect = () => {
         setTimeModal(false)
     }
 
+    const handleSubdivision = (e) => {
+        if(e.target.value === 'eights' && timeSelection.compoundMeter) {
+            setIsSubdivided(true)
+        } else {setIsSubdivided(false)}
+    }
+
 useEffect(() => {
     if(timeSelection) {
         setSelectValue(timeSelection.time)
+        timeSelection.compoundMeter ? setCompoundModal(true) : setCompoundModal(false)
+    }
+    return()=>{
+        setCompoundModal(false)
     }
 }, [timeSelection])
 
 useEffect(() => {
     setTimeSelection({...timeSignaturesData[1]})
     setTimeModal(false)
+    setCompoundModal(false)
+    //eslint-disable-next-line
 }, [])
 
     return (
@@ -81,6 +97,18 @@ useEffect(() => {
                             </li>
                     ))}
                 </ul>   
+            }
+            {compoundModal &&
+                <div className='subdivision-section' onChange={handleSubdivision}>
+                    <input 
+                        name='subdivision' id='dotted-quarter' 
+                        type='radio' defaultChecked value='dotted-quarter'
+                        className='subdivision-radio'/>
+                    <input 
+                        name='subdivision' id='eights' 
+                        type='radio' value='eights'
+                        className='subdivision-radio'/>Colcheia
+                </div>
             }
         </div>
     )

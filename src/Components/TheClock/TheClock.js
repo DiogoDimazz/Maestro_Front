@@ -1,10 +1,11 @@
+import { useEffect, useState } from "react"
 import useConsumer from "../../Hooks/useConsumer"
 import { useInterval } from "../../Hooks/useInterval"
 import usePlayConsumer from "../../Hooks/usePlayConsumer"
 
 export const TheClock = () => {
     const {
-        bpmG,
+        bpmG, isSubdivided, setIsSubdivided
     } = useConsumer()
     
     const {
@@ -16,13 +17,14 @@ export const TheClock = () => {
         resetAudioStructure, setResetAudioStructure
     } = usePlayConsumer()
 
+    const [pulseSpeed, setPulseSpeed] = useState()
+
     const playTheSources = (currentBeat, currentBuffer) => {
         currentBeat.buffer = currentBuffer
         currentBeat.connect(audioCtx.destination)
         
         currentBeat.duration = 60/bpmG
         currentBeat.start()
-
         }
 
 
@@ -38,6 +40,10 @@ export const TheClock = () => {
         setTimeSignG({...timeSignG, isBeat: controlArray})
     }
 
+    useEffect(() => {
+        isSubdivided ? setPulseSpeed(60000/(bpmG*3)) : setPulseSpeed(60000/bpmG)
+    }, [isSubdivided, bpmG])
+
     useInterval(() => {
         playTheSources(beatSources[iterator], beatBuffers[iterator])
         turnTheLightsOn()
@@ -47,6 +53,6 @@ export const TheClock = () => {
         }
         setIterator(prev => prev + 1)
 
-    }, metronomeOn ? 60000/bpmG :  null)
+    }, metronomeOn ? pulseSpeed :  null)
 
 }
