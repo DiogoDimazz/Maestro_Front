@@ -2,12 +2,7 @@ import { useState } from "react"
 
 function usePlayProvider() {
     const [metronomeOn, setMetronomeOn] = useState()
-    const [timeSignG, setTimeSignG] = useState({
-        time: '4/4',
-        compoundMeter: false,
-        beats: ['strong', 'weak', 'weak', 'weak'],
-        isBeat: [false, false, false, false]
-    })
+    const [timeSignG, setTimeSignG] = useState()
     
     const [resetAudioStructure, setResetAudioStructure] = useState(false)
     const [beatSources, setBeatSources] = useState([])

@@ -1,41 +1,114 @@
 import useConsumer from '../../Hooks/useConsumer'
 import './styles.css'
 import { timeSignaturesData } from '../../Data/TimeSignatureData'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import arrow from '../../assets/arrow.svg'
 
 export const TimeSelect = () => {
-    const {setTimeSelection} = useConsumer()
-    const [selectValue, setSelectValue] = useState(1)
+    const {
+        timeSelection, setTimeSelection,
+        setIsSubdivided
+    } = useConsumer()
+    const [selectValue, setSelectValue] = useState()
+    const [timeModal, setTimeModal] = useState()
+    const [compoundModal, setCompoundModal] = useState()
 
-    const handleChangeTime = (e) => {
-        if(e.target.value === '8') {
-            setTimeSelection(timeSignaturesData[1])
-            setSelectValue(1)
-            return
-        }
-        setSelectValue(e.target.value)
-        setTimeSelection(timeSignaturesData[e.target.value])
+    const handleModal = () => {
+        setTimeModal(prev=>!prev)
     }
 
+    const setTime = (e) => {
+        e.preventDefault()
+
+        switch (e.target.innerText) {
+            case 'beat simples':
+                setTimeSelection(timeSignaturesData[0])
+                break;
+            case '4/4':
+                setTimeSelection(timeSignaturesData[1])
+                break;
+            case '3/4':
+                setTimeSelection(timeSignaturesData[2])
+                break;
+            case '2/4':
+                setTimeSelection(timeSignaturesData[3])
+                break;
+            case '6/8':
+                setTimeSelection(timeSignaturesData[4])
+                break;
+            case '3/8':
+                setTimeSelection(timeSignaturesData[5])
+                break;
+            case '9/8':
+                setTimeSelection(timeSignaturesData[6])
+                break;
+            case '12/8':
+                setTimeSelection(timeSignaturesData[7])
+                break;
+            default:
+                break;
+        }
+
+        setTimeModal(false)
+    }
+
+    const handleSubdivision = (e) => {
+        if(e.target.value === 'eighths' && timeSelection.compoundMeter) {
+            setIsSubdivided(true)
+        } else {setIsSubdivided(false)}
+    }
+
+useEffect(() => {
+    if(timeSelection) {
+        setSelectValue(timeSelection.time)
+        timeSelection.compoundMeter ? setCompoundModal(true) : setCompoundModal(false)
+    }
+    return()=>{
+        setCompoundModal(false)
+    }
+}, [timeSelection])
+
+useEffect(() => {
+    setTimeSelection({...timeSignaturesData[1]})
+    setTimeModal(false)
+    setCompoundModal(false)
+    //eslint-disable-next-line
+}, [])
+
     return (
-        <div className='main-time-input input-style'>
-            <select 
-            className='select-box large-input-font' 
-            value={selectValue} 
-            onChange={handleChangeTime}
+        <div className='main-time-input'>
+            <div 
+            className='select-box large-input-font input-style' 
+            onClick={handleModal}
             >
-                <option value={0}>beat simples</option>
-                <option value={1}>4/4</option>
-                <option value={2}>3/4</option>
-                <option value={3}>2/4</option>
-                <option value={4}>6/8</option>
-                <option value={5}>3/8</option>
-                <option value={6}>9/8</option>
-                <option value={7}>12/8</option>
-                <option value={8}>Outra...</option>
-            </select>
-            <img src={arrow} alt='arrow' className='arrow select-arrow'/>
+                {selectValue}
+                <img src={arrow} alt='arrow' className='arrow select-arrow'/>
+            </div>
+            {timeModal &&
+                <ul className='time-modal'>
+                    {timeSignaturesData.map((time, index) => (
+                        <li 
+                            className='time-option' 
+                            onClick={setTime}
+                            key={index}
+                            >
+                                {time.time}
+                        </li>
+                    ))}
+                </ul>   
+            }
+            {compoundModal &&
+                <div className='subdivision-section' onChange={handleSubdivision}>
+                    <input 
+                        name='subdivision' id='dotted-quarter' 
+                        type='radio' defaultChecked value='dotted-quarter'
+                        className='subdivision-radio'/>Semínima Pontuada
+                    <input 
+                        name='subdivision' id='eighths' 
+                        type='radio' value='eighths'
+                        className='subdivision-radio'/>Colcheia
+                </div>
+            }
         </div>
     )
 }

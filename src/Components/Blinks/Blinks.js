@@ -5,7 +5,7 @@ import usePlayConsumer from '../../Hooks/usePlayConsumer'
 
 export const Blinks = () => {
 
-    const { bpmG, timeSelection, setTimeSelection } = useConsumer()
+    const { bpmG, timeSelection } = useConsumer()
     
     const {
         metronomeOn,
@@ -23,6 +23,7 @@ export const Blinks = () => {
     }
 
     const turnOfftheLights = () => {
+        if(!timeSignG) return
         const local = timeSignG.isBeat
         local.fill(false)
         setTimeSignG({...timeSignG, isBeat: local})
@@ -39,8 +40,10 @@ export const Blinks = () => {
     }, [localTimeSign, bpmG])
 
     useEffect(() => {
-        setLocalTimeSign({...timeSelection})
-        setTimeSignG({...timeSelection})
+        if(timeSelection) {
+            setLocalTimeSign({...timeSelection})
+            setTimeSignG({...timeSelection})
+        }
         return()=>{}
         //eslint-disable-next-line
     }, [metronomeOn, timeSelection])
