@@ -2,10 +2,11 @@ import { useEffect, useState } from "react"
 import useConsumer from "../../Hooks/useConsumer"
 import { useInterval } from "../../Hooks/useInterval"
 import usePlayConsumer from "../../Hooks/usePlayConsumer"
+import {timeSignaturesData} from "../../Data/TimeSignatureData"
 
 export const TheClock = () => {
     const {
-        bpmG, isSubdivided, setIsSubdivided
+        bpmG, isSubdivided
     } = useConsumer()
     
     const {
@@ -28,7 +29,7 @@ export const TheClock = () => {
         }
 
 
-    const turnTheLightsOn = () => {       
+    const turnTheLightsOn = () => {
         const controlArray = timeSignG.isBeat
         
         controlArray[iterator] = true
@@ -43,6 +44,11 @@ export const TheClock = () => {
     useEffect(() => {
         isSubdivided ? setPulseSpeed(60000/(bpmG*3)) : setPulseSpeed(60000/bpmG)
     }, [isSubdivided, bpmG])
+
+    useEffect(()=>{
+        setTimeSignG({...timeSignaturesData[1]})
+        //eslint-disable-next-line
+    },[])
 
     useInterval(() => {
         playTheSources(beatSources[iterator], beatBuffers[iterator])

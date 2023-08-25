@@ -23,6 +23,7 @@ export const Blinks = () => {
     }
 
     const turnOfftheLights = () => {
+        if(!timeSignG) return
         const local = timeSignG.isBeat
         local.fill(false)
         setTimeSignG({...timeSignG, isBeat: local})

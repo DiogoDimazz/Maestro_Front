@@ -1,11 +1,11 @@
 import './styles.css'
+import { useEffect, useState } from 'react'
 import { BpmRuler } from '../BpmRuler/BpmRuler'
 import { BpmInput } from '../BpmInput/BpmInput'
 import {Blinks} from '../Blinks/Blinks'
 import { BpmChangeStructure } from '../BpmChangeStructure/BpmChangeStructure'
 import { OnAndOffBtn } from '../OnAndOffBtn/OnAndOffBtn'
 import { TimeSelect } from '../TimeSelect/TimeSelect'
-import { useEffect, useState } from 'react'
 import useConsumer from '../../Hooks/useConsumer'
 
 export const MetronomeSections = () => {
@@ -17,9 +17,9 @@ export const MetronomeSections = () => {
     } = useConsumer()
     const [bpmInputTransport, setBpmInputTransport] = useState(null)
     
-    function numberTest(e) {
-        if(!isNaN(e) && !bpmInputTransport) {
-            setBpmInputTransport(e)
+    function numberTest(key) {
+        if(!isNaN(key) && !bpmInputTransport) {
+            setBpmInputTransport(key)
             window.removeEventListener('keydown', keyboardInput)
             return
         }
@@ -29,7 +29,6 @@ export const MetronomeSections = () => {
         event.preventDefault()
         switch (event.code) {
             case 'Space':
-                console.log('right case');
                 setMetronomeStandBy(prev => !prev)
                 break;
             case 'ArrowUp':

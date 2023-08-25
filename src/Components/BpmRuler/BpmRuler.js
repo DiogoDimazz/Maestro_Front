@@ -6,13 +6,12 @@ import usePlayConsumer from '../../Hooks/usePlayConsumer'
 
 export const BpmRuler = () => {
     const {
-        bpmG, setBpmG
+        bpmG, setBpmG,
+        inputBpm, setInputBpm
     } = useConsumer()
     const {
-        metronomeOn, setMetronomeOn,
         resetAudioStructure, setResetAudioStructure
     } = usePlayConsumer()
-    const [localMetronomeOn, setLocalMetronomeOn] = useState()
     const [rulerDivision, setRulerDivision] = useState(0)
     const [handlePosition, setHandlePosition] = useState()
     const rulerLineRef = useRef()
@@ -20,13 +19,11 @@ export const BpmRuler = () => {
     
     
     const onTheDrag = (e, data) => {
-        if (metronomeOn) {setLocalMetronomeOn(true)}
-        setMetronomeOn(false)
         setHandlePosition(data.x)
         const value = Number(((data.x/rulerDivision)+170).toFixed(0))
-        if (value > 300) {return setBpmG(300)}
-        if (value < 40) {return setBpmG(40)}
-        setBpmG(value)
+        if (value > 300) {return setInputBpm(300)}
+        if (value < 40) {return setInputBpm(40)}
+        setInputBpm(value)
     }
     
     const handleDrop = (e, data) => {
@@ -35,8 +32,6 @@ export const BpmRuler = () => {
         else if (finalValue > 300) {setBpmG(300)}
         else setBpmG(finalValue);
         setResetAudioStructure(!resetAudioStructure)
-        
-        if(localMetronomeOn) {setMetronomeOn(true)}
     }
     
     function getRulerSize() {
@@ -44,19 +39,19 @@ export const BpmRuler = () => {
     }
     
     function getHandlePosition() {
-        setHandlePosition((bpmG-170)*rulerDivision)
+        setHandlePosition((inputBpm-170)*rulerDivision)
     }
-
+    
     useEffect(() => {
         getHandlePosition()
         return()=>{}
         //eslint-disable-next-line
-    }, [rulerDivision, bpmG])
-
+    }, [rulerDivision, inputBpm])
+    
     useEffect(() => {
         window.addEventListener('resize', getRulerSize)
         getRulerSize()
-        setLocalMetronomeOn(metronomeOn)
+        setInputBpm(bpmG)
         return()=>{
             window.removeEventListener('resize', getRulerSize)
         }

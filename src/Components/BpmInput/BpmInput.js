@@ -5,7 +5,8 @@ import useConsumer from '../../Hooks/useConsumer'
 export const BpmInput = ({bpmInputTransport, setBpmInputTransport, keyboardInput}) => {
     const {
         setMetronomeStandBy,
-        bpmG, setBpmG
+        bpmG, setBpmG,
+        inputBpm, setInputBpm
     } = useConsumer()
 
     const [localBpm, setLocalBpm] = useState('')
@@ -29,7 +30,8 @@ export const BpmInput = ({bpmInputTransport, setBpmInputTransport, keyboardInput
 
         if (localValue >= 40 && localValue <= 300) {
             setBpmG(localValue)
-            setPreviousBpm(localValue)
+            setInputBpm(localValue)
+            // setPreviousBpm(localValue)
             setBpmInputTransport(null)
             return
         }
@@ -65,12 +67,12 @@ export const BpmInput = ({bpmInputTransport, setBpmInputTransport, keyboardInput
     }, [bpmInputTransport])
 
     useEffect(() => {
-        setLocalBpm(bpmG)
+        setLocalBpm(inputBpm)
         setPreviousBpm(bpmG)
 
         return()=>{}
         //eslint-disable-next-line
-    }, [bpmG, bpmErrorState])
+    }, [bpmG, inputBpm])
 
     return (
         <div className='bpm-input-main'>

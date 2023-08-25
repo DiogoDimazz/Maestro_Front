@@ -53,7 +53,7 @@ export const TimeSelect = () => {
     }
 
     const handleSubdivision = (e) => {
-        if(e.target.value === 'eights' && timeSelection.compoundMeter) {
+        if(e.target.value === 'eighths' && timeSelection.compoundMeter) {
             setIsSubdivided(true)
         } else {setIsSubdivided(false)}
     }
@@ -79,7 +79,6 @@ useEffect(() => {
         <div className='main-time-input'>
             <div 
             className='select-box large-input-font input-style' 
-            value={selectValue} 
             onClick={handleModal}
             >
                 {selectValue}
@@ -94,7 +93,7 @@ useEffect(() => {
                             key={index}
                             >
                                 {time.time}
-                            </li>
+                        </li>
                     ))}
                 </ul>   
             }
@@ -103,10 +102,10 @@ useEffect(() => {
                     <input 
                         name='subdivision' id='dotted-quarter' 
                         type='radio' defaultChecked value='dotted-quarter'
-                        className='subdivision-radio'/>
+                        className='subdivision-radio'/>Semínima Pontuada
                     <input 
-                        name='subdivision' id='eights' 
-                        type='radio' value='eights'
+                        name='subdivision' id='eighths' 
+                        type='radio' value='eighths'
                         className='subdivision-radio'/>Colcheia
                 </div>
             }
