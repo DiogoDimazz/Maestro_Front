@@ -9,6 +9,7 @@ function usePlayProvider() {
     const [beatBuffers, setBeatBuffers] = useState([])
     const [iterator, setIterator] = useState()
     const [audioCtx, setAudioCtxs] = useState();
+    const [volumeNode, setVolumeNode] = useState()
 
         return {
         metronomeOn, setMetronomeOn,
@@ -18,6 +19,7 @@ function usePlayProvider() {
         beatBuffers, setBeatBuffers,
         iterator, setIterator,
         audioCtx, setAudioCtxs,
+        volumeNode, setVolumeNode
     }
 }
 

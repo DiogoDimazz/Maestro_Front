@@ -20,13 +20,4 @@
     border-radius: 10px;   
 }
 
-.ruler-weight {
-    height: 2.5rem;
-    width: 2.5rem;
 
-    background-color: var(--blue-200);
-
-    border-radius: 50%;
-    position: absolute;
-    
-}

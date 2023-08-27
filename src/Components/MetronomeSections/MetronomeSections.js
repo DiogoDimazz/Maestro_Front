@@ -7,6 +7,7 @@ import { BpmChangeStructure } from '../BpmChangeStructure/BpmChangeStructure'
 import { OnAndOffBtn } from '../OnAndOffBtn/OnAndOffBtn'
 import { TimeSelect } from '../TimeSelect/TimeSelect'
 import useConsumer from '../../Hooks/useConsumer'
+import { VolumeSlide } from '../VolumeSlide/VolumeSlide'
 
 export const MetronomeSections = () => {
     const { 
@@ -83,7 +84,7 @@ export const MetronomeSections = () => {
                 </div>
                 <div className='right-down-controls'>
                     <TimeSelect/>
-                    <span>slider de volume</span>
+                    <VolumeSlide/>
                 </div>
             </div>
         </main>

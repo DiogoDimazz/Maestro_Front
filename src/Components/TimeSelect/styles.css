@@ -50,9 +50,19 @@
     display: flex;
     width: 150%;
     margin-top: 3rem;
+    margin-left: 3rem;
     align-items: center;
 }
 
 .subdivision-radio {
     margin-right: 1rem;
+}
+
+.dotted-quarter-figure {
+    width: 15px;
+    margin-right: 30px;
+}
+
+.eighth-figure {
+    width: 30px;
 }

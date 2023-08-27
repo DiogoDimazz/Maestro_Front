@@ -8,6 +8,7 @@ function useProvider() {
     const [numberDetectionBlock, setNumberDetectionBlock] = useState(false)
     const [timeSelection, setTimeSelection] = useState()
     const [isSubdivided, setIsSubdivided] = useState(false)
+    const [volume, setVolume] = useState()
 
     return {
         metronomeStandBy, setMetronomeStandBy,
@@ -16,7 +17,8 @@ function useProvider() {
         bpmChangeCoeficient, setBpmChangeCoeficient,
         numberDetectionBlock, setNumberDetectionBlock,
         timeSelection, setTimeSelection,
-        isSubdivided, setIsSubdivided
+        isSubdivided, setIsSubdivided,
+        volume, setVolume
     }
 }
 

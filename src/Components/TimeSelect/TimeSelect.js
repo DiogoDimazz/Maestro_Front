@@ -3,6 +3,8 @@ import './styles.css'
 import { timeSignaturesData } from '../../Data/TimeSignatureData'
 import { useEffect, useState } from 'react'
 import arrow from '../../assets/arrow.svg'
+import dotterQuarter from '../../assets/Dotted_quarter_note_with_upwards.svg'
+import eighth from '../../assets/musical-notes-png-3746.png'
 
 export const TimeSelect = () => {
     const {
@@ -102,11 +104,13 @@ useEffect(() => {
                     <input 
                         name='subdivision' id='dotted-quarter' 
                         type='radio' defaultChecked value='dotted-quarter'
-                        className='subdivision-radio'/>Semínima Pontuada
+                        className='subdivision-radio'/>
+                        <img className='dotted-quarter-figure' src={dotterQuarter} alt='dotted-quarter'/>
                     <input 
                         name='subdivision' id='eighths' 
                         type='radio' value='eighths'
-                        className='subdivision-radio'/>Colcheia
+                        className='subdivision-radio'/>
+                        <img className='eighth-figure' src={eighth} alt='eighth'/>
                 </div>
             }
         </div>
