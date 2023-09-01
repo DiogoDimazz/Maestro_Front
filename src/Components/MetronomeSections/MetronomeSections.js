@@ -14,6 +14,7 @@ export const MetronomeSections = () => {
         setMetronomeStandBy,
         bpmChangeCoeficient, setBpmChangeCoeficient,
         bpmG, setBpmG,
+        setInputBpm,
         numberDetectionBlock
     } = useConsumer()
     const [bpmInputTransport, setBpmInputTransport] = useState(null)
@@ -43,10 +44,12 @@ export const MetronomeSections = () => {
             case 'ArrowRight':
                 if(bpmG + bpmChangeCoeficient >= 300) {return setBpmG(300)}
                 setBpmG(bpmG + bpmChangeCoeficient)
+                setInputBpm(bpmG + bpmChangeCoeficient)
                 break;
             case 'ArrowLeft':
                 if(bpmG - bpmChangeCoeficient <= 40) {return setBpmG(40)}
                 setBpmG(bpmG - bpmChangeCoeficient)
+                setInputBpm(bpmG - bpmChangeCoeficient)
                 break;
             default:
                 numberTest(event.key)
