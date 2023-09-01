@@ -47,13 +47,14 @@ export const TheClock = () => {
     }, [isSubdivided, bpmG])
 
     const adjustVolume = () => {
-        console.log(volumeNode.gain.value);
         volumeNode.gain.value = volume
     }
 
     useEffect(() => {
         if(!volumeNode) return
         adjustVolume()
+        return()=>{}
+        //eslint-disable-next-line
     }, [volumeNode, resetAudioStructure])
 
     useEffect(()=>{
@@ -71,11 +72,5 @@ export const TheClock = () => {
         setIterator(prev => prev + 1)
 
     }, metronomeOn ? pulseSpeed :  null)
-
-    // return (
-    //     <>
-    //         <input type="range" id="volume" min='-3' max='2.75' defaultValue={volume} step='0.25' style={{display: "none"}}/>
-    //     </>
-    // )
 
 }
