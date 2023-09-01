@@ -12,7 +12,8 @@ export const SoundGenerator = () => {
         beatSources, setBeatSources,
         setBeatBuffers,
         setIterator,
-        audioCtx, setAudioCtxs
+        audioCtx, setAudioCtxs,
+        setVolumeNode
     } = usePlayConsumer()
     
     const [generatorBeatsArray, setGeneratorBeatsArray] = useState([])
@@ -31,6 +32,7 @@ export const SoundGenerator = () => {
         if(!audioCtx) return
         loadBeats()
         createBuffers()
+        createVolumeNode()
         return()=>{}
         //eslint-disable-next-line
     }, [audioCtx])
@@ -53,6 +55,10 @@ export const SoundGenerator = () => {
             localSources.push(localBufferSource)
         }
         setBeatSources(localSources)
+    }
+
+    const createVolumeNode = () =>{
+        setVolumeNode(audioCtx.createGain())
     }
 
 

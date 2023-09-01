@@ -1,0 +1,18 @@
+.volume-conteiner {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    position: relative;
+}
+
+.volume-line {
+    width: 4px;
+    height: 100%;
+    
+    background-color: var(--wood-palette-600);
+    outline: 2px solid var(--wood-palette-200);
+    outline-style: outset;
+    border-radius: 10px; 
+}

@@ -6,7 +6,7 @@ import {timeSignaturesData} from "../../Data/TimeSignatureData"
 
 export const TheClock = () => {
     const {
-        bpmG, isSubdivided
+        bpmG, isSubdivided, volume
     } = useConsumer()
     
     const {
@@ -15,14 +15,15 @@ export const TheClock = () => {
         iterator, setIterator,
         audioCtx,
         beatBuffers, beatSources,
-        resetAudioStructure, setResetAudioStructure
+        resetAudioStructure, setResetAudioStructure,
+        volumeNode
     } = usePlayConsumer()
 
     const [pulseSpeed, setPulseSpeed] = useState()
 
     const playTheSources = (currentBeat, currentBuffer) => {
         currentBeat.buffer = currentBuffer
-        currentBeat.connect(audioCtx.destination)
+        currentBeat.connect(volumeNode).connect(audioCtx.destination)
         
         currentBeat.duration = 60/bpmG
         currentBeat.start()
@@ -45,6 +46,16 @@ export const TheClock = () => {
         isSubdivided ? setPulseSpeed(60000/(bpmG*3)) : setPulseSpeed(60000/bpmG)
     }, [isSubdivided, bpmG])
 
+    const adjustVolume = () => {
+        console.log(volumeNode.gain.value);
+        volumeNode.gain.value = volume
+    }
+
+    useEffect(() => {
+        if(!volumeNode) return
+        adjustVolume()
+    }, [volumeNode, resetAudioStructure])
+
     useEffect(()=>{
         setTimeSignG({...timeSignaturesData[1]})
         //eslint-disable-next-line
@@ -60,5 +71,11 @@ export const TheClock = () => {
         setIterator(prev => prev + 1)
 
     }, metronomeOn ? pulseSpeed :  null)
+
+    // return (
+    //     <>
+    //         <input type="range" id="volume" min='-3' max='2.75' defaultValue={volume} step='0.25' style={{display: "none"}}/>
+    //     </>
+    // )
 
 }

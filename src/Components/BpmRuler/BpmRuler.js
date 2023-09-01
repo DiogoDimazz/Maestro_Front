@@ -36,6 +36,7 @@ export const BpmRuler = () => {
     
     function getRulerSize() {
         setRulerDivision(Number((0.35*rulerLineRef.current.offsetWidth/100).toFixed(0)));
+        //eu queria dividir o tamanho total da linha (100%) por 0.35% pois 0.35 multiplicado pelo total de beats que eu quero ter (261) vai dar 91,35 que no caso serão 91,35%. O restante é a sangria para não dar erro na linha e garantir que os valores extremos serão alcançados (40 e 300)
     }
     
     function getHandlePosition() {
@@ -64,14 +65,14 @@ export const BpmRuler = () => {
             <Draggable
                 axis='x'
                 bounds={'.ruler-line'}
-                handle='.ruler-weight'
+                handle='.ruler-handle'
                 grid={[rulerDivision, 0]}
                 onDrag={onTheDrag}
                 onStop={handleDrop}
                 position={{x: handlePosition, y: 0}}
                 ref={draggableRef}
                 >
-                <div className='ruler-weight'/>
+                <div className='ruler-handle slider-handle'/>
             </Draggable>
         </main>
     )
